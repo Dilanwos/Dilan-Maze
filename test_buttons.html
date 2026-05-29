@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Test Buttons</title>
+    <style>
+        body {
+            background: #000;
+            color: #0f0;
+            font-family: Arial;
+            padding: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        #log {
+            border: 1px solid #0f0;
+            padding: 10px;
+            height: 300px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>🧪 Test de Botones</h1>
+
+    <button id="playBtn">JUGAR</button>
+    <button id="hardModeBtn">MODO DIFÍCIL</button>
+    <button id="scoresBtn">RÉCORDS</button>
+
+    <h2>Log:</h2>
+    <div id="log"></div>
+
+    <script>
+        function log(msg) {
+            const logDiv = document.getElementById('log');
+            logDiv.innerHTML += msg + '<br>';
+            logDiv.scrollTop = logDiv.scrollHeight;
+            console.log(msg);
+        }
+
+        log('✅ Script cargado');
+
+        document.addEventListener('DOMContentLoaded', () => {
+            log('✅ DOM Cargado');
+
+            setTimeout(() => {
+                const playBtn = document.getElementById('playBtn');
+                const hardBtn = document.getElementById('hardModeBtn');
+                const scoresBtn = document.getElementById('scoresBtn');
+
+                log('Botones encontrados: ' + [playBtn, hardBtn, scoresBtn].map(b => b ? 'SÍ' : 'NO').join(', '));
+
+                if (playBtn) {
+                    playBtn.addEventListener('click', () => {
+                        log('👾 Click en JUGAR');
+                    });
+                    log('✅ Listener adjuntado a JUGAR');
+                }
+
+                if (hardBtn) {
+                    hardBtn.addEventListener('click', () => {
+                        log('⚡ Click en MODO DIFÍCIL');
+                    });
+                    log('✅ Listener adjuntado a MODO DIFÍCIL');
+                }
+
+                if (scoresBtn) {
+                    scoresBtn.addEventListener('click', () => {
+                        log('🏆 Click en RÉCORDS');
+                    });
+                    log('✅ Listener adjuntado a RÉCORDS');
+                }
+            }, 200);
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PAC-MAN | Arcade Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Menú Inicial -->
+    <div id="mainMenu" class="menu-container">
+        <div class="menu-content">
+            <h1 class="game-title">
+                <span class="title-letter">D</span>
+                <span class="title-letter">I</span>
+                <span class="title-letter">L</span>
+                <span class="title-letter">A</span>
+                <span class="title-letter">N</span>
+                <span class="title-letter" style="margin-right: 10px;">-</span>
+                <span class="title-letter">M</span>
+                <span class="title-letter">A</span>
+                <span class="title-letter">Z</span>
+                <span class="title-letter">E</span>
+            </h1>
+            <p class="menu-subtitle">Arcade Classic</p>
+
+            <div class="menu-buttons">
+                <button id="playBtn" class="btn btn-primary">▶ JUGAR</button>
+                <button id="hardModeBtn" class="btn btn-secondary">⚡ MODO DIFÍCIL</button>
+                <button id="scoresBtn" class="btn btn-secondary">🏆 RÉCORDS</button>
+            </div>
+
+            <div class="menu-instructions">
+                <p><strong>CONTROLES</strong></p>
+                <p>⬆️ ⬅️ ⬇️ ➡️ o WASD - Movimiento</p>
+                <p>ESPACIO - Pausa/Reanudar</p>
+                <p>R - Reiniciar</p>
+            </div>
+
+            <div class="ghost-demo">
+                <div class="ghost red"></div>
+                <div class="ghost pink"></div>
+                <div class="ghost cyan"></div>
+                <div class="ghost orange"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contenedor del Juego -->
+    <div id="gameContainer" class="game-container" style="display: none;">
+        <!-- HUD Superior -->
+        <div class="hud">
+            <div class="hud-left">
+                <span class="label">SCORE</span>
+                <span id="score" class="hud-value">0</span>
+            </div>
+            <div class="hud-center">
+                <span class="label">LEVEL</span>
+                <span id="level" class="hud-value">1</span>
+            </div>
+            <div class="hud-right">
+                <span class="label">VIDAS</span>
+                <span id="lives" class="hud-value">●●●</span>
+            </div>
+        </div>
+
+        <!-- Canvas del Juego -->
+        <canvas id="gameCanvas" width="630" height="630"></canvas>
+
+        <!-- Controles Móviles (se muestran solo en móvil) -->
+        <div class="mobile-controls">
+            <div class="dpad">
+                <button class="d-btn up" data-dir="up">▲</button>
+                <div class="d-middle">
+                    <button class="d-btn left" data-dir="left">◀</button>
+                    <button class="d-btn right" data-dir="right">▶</button>
+                </div>
+                <button class="d-btn down" data-dir="down">▼</button>
+            </div>
+            <div class="action-buttons">
+                <button class="action-btn" id="pauseBtn">⏸</button>
+                <button class="action-btn" id="restartBtn">⟲</button>
+            </div>
+        </div>
+
+        <!-- Información Inferior -->
+        <div class="game-info">
+            <span id="gameStatus" class="status">En juego...</span>
+            <button id="backBtn" class="btn-small">← Menú</button>
+        </div>
+    </div>
+
+    <!-- Pantalla de Game Over -->
+    <div id="gameOverScreen" class="game-over-container" style="display: none;">
+        <div class="game-over-content">
+            <h2 id="gameOverTitle">GAME OVER</h2>
+            <p id="finalScore" class="final-score">Puntuación: 0</p>
+            <p id="levelReached" class="level-reached">Nivel alcanzado: 1</p>
+            <div class="game-over-buttons">
+                <button id="retryBtn" class="btn btn-primary">🔄 REINTENTAR</button>
+                <button id="menuBtn" class="btn btn-secondary">← MENÚ</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Récords -->
+    <div id="scoresModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>🏆 TABLA DE RÉCORDS</h3>
+                <button class="modal-close" id="closeScoresBtn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <table class="scores-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Puntuación</th>
+                            <th>Nivel</th>
+                            <th>Fecha</th>
+                        </tr>
+                    </thead>
+                    <tbody id="scoresTableBody">
+                        <tr>
+                            <td colspan="4" style="text-align: center; color: #999;">Sin récords aún</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="clearScoresBtn">🗑️ Limpiar Récords</button>
+                <button class="btn btn-secondary" id="closeScoresBtn2">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pantalla de Pausa -->
+    <div id="pauseScreen" class="pause-container" style="display: none;">
+        <div class="pause-content">
+            <h2>⏸ PAUSADO</h2>
+            <p>Presiona ESPACIO para continuar</p>
+            <div class="pause-buttons">
+                <button id="resumeBtn" class="btn btn-primary">▶ CONTINUAR</button>
+                <button id="restartFromPauseBtn" class="btn btn-secondary">⟲ REINICIAR</button>
+                <button id="menuFromPauseBtn" class="btn btn-secondary">← MENÚ</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="audio.js"></script>
+    <script src="game_fixed.js"></script>
+</body>
+
+</html>

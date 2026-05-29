@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Test - Game Loop</title>
+    <style>
+        body {
+            background: #000;
+            color: #0f0;
+            font-family: monospace;
+            padding: 20px;
+        }
+
+        #status {
+            border: 1px solid #0f0;
+            padding: 10px;
+            margin: 10px 0;
+            height: 200px;
+            overflow-y: auto;
+        }
+
+        canvas {
+            border: 1px solid #0f0;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>🧪 Test - Verificar Game Loop</h1>
+
+    <h3>Estado del Game Loop:</h3>
+    <div id="status"></div>
+
+    <p>
+        <strong>Esperado:</strong> Ver múltiples mensajes de "frame" incluso sin mover el mouse.
+        <br>
+        <strong>Si ves: </strong> "Ghost A: (17,17)" y cambios de posición constantes = ✅ Correcto
+        <br>
+        <strong>Si NO ves cambios: </strong> El game loop no está corriendo autónomamente = ❌ Problema
+    </p>
+
+    <script>
+        let frameCount = 0;
+        let ghostPos = { x: 17, y: 17 };
+        let running = false;
+
+        function log(msg) {
+            const el = document.getElementById('status');
+            el.innerHTML += msg + '\n';
+            el.scrollTop = el.scrollHeight;
+        }
+
+        function startGameLoop() {
+            running = true;
+            log('✅ Game loop iniciado');
+            gameLoop();
+        }
+
+        function gameLoop() {
+            if (!running) return;
+
+            frameCount++;
+
+            // Simular movimiento de fantasma cada 10 frames
+            if (frameCount % 10 === 0) {
+                if (ghostPos.x < 20) ghostPos.x++;
+                else ghostPos.x = 17;
+            }
+
+            // Log cada 30 frames
+            if (frameCount % 30 === 0) {
+                log(`Frame ${frameCount}: Ghost A: (${ghostPos.x},${ghostPos.y})`);
+            }
+
+            requestAnimationFrame(gameLoop);
+        }
+
+        // Iniciar después de 1 segundo
+        setTimeout(startGameLoop, 1000);
+        log('⏳ Esperando 1 segundo antes de iniciar...');
+        log('Si ves cambios en "Ghost A" mientras NO haces nada = Correcto');
+        log('---');
+    </script>
+</body>
+
+</html>
